@@ -17,7 +17,7 @@
                 to choose from and they range from mild to wild.
             </p>
             <p>
-                <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301948">Learn more &raquo;</a>
+                <a class="btn btn-default" href="http://localhost/ProductList.aspx?id=1">Learn more &raquo;</a>
             </p>
         </div>
         <div class="col-md-4">
@@ -26,7 +26,7 @@
                 remote control fun.
             </p>
             <p>
-                <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301949">Learn more &raquo;</a>
+                <a class="btn btn-default" href="http://localhost/ProductList.aspx?id="4"">Learn more &raquo;</a>
             </p>
         </div>
         <div class="col-md-4">
