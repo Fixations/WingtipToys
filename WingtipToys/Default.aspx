@@ -13,29 +13,29 @@
     <div class="row">
         <div class="col-md-4">
             <h2>Sports Cars</h2>
-            <p>Search throw all of our specialty cars and find the perfect one for your little racer. We even have one with a real gas engine. Many 
+            <p>Search through all of our specialty cars and find the perfect one for your "little racer". We even have one with a real gas engine. Many 
                 to choose from and they range from mild to wild.
             </p>
             <p>
-                <a class="btn btn-default" href="http://localhost/ProductList.aspx?id=1">Learn more &raquo;</a>
+                <a class="btn btn-default" href="ProductList.aspx?id=1">See more &raquo;</a>
             </p>
         </div>
         <div class="col-md-4">
             <h2>Boats</h2>
-            <p>Sail boats with authentic cloth sails, detailing, and working rudders. Boats with artificial intellegance, allowing for hours of 
+            <p>Sail boats with authentic cloth sails, detailing, and working rudders. Boats with artificial intelligence, allowing for hours of 
                 remote control fun.
             </p>
             <p>
-                <a class="btn btn-default" href="http://localhost/ProductList.aspx?id="4"">Learn more &raquo;</a>
+                <a class="btn btn-default" href="ProductList.aspx?id=4">See more &raquo;</a>
             </p>
         </div>
         <div class="col-md-4">
-            <h2>Web Hosting</h2>
-            <p>
-                You can easily find a web hosting company that offers the right mix of features and price for your applications.
+            <h2>Rockets</h2>
+            <p>Why not find out how high you can go? Build one of our Rockets to reach 200 feet plus in to the sky. These model rocket kits 
+                are fun to build and fabulous to fly.
             </p>
             <p>
-                <a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301950">Learn more &raquo;</a>
+                <a class="btn btn-default" href="ProductList.aaspx?id=5">See more &raquo;</a>
             </p>
         </div>
     </div>
