@@ -20,6 +20,11 @@
                             <br />
                             <span><b>Product Number: </b>&nbsp;<%#: Item.ProductID %></span>
                             <br />
+                                <a href="/AddToCart.aspx?productId=<%#: Item.ProductID %>">
+                                    <span class="ProductListItem">
+                                        <b>Add To Cart</b>
+                                    </span>
+                                </a>
                         </div>
                     </td>
                 </tr>
