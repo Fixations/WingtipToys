@@ -59,7 +59,7 @@ namespace WingtipToys
             //   appId: "",
             //   appSecret: "");
 
-            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions());
+            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
             //    ClientId = "",
             //    ClientSecret = ""

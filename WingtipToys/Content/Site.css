@@ -10,6 +10,10 @@ body {
     padding-left: 15px;
     padding-right: 15px;
 }
+#CheckoutImageBtn {
+    margin: 0 10px 0 10px;
+}
+
 
 /* Override the default bootstrap behavior where horizontal description lists 
    will truncate terms that are too long to fit in the left column 
