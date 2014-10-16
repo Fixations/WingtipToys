@@ -35,7 +35,7 @@
     <br />
     <table>
         <tr>
-            <td>
+            <td style="padding:0 10px 0 10px;">
                 <asp:Button ID="UpdateBtn" runat="server" Text="Update" OnClick="UpdateBtn_Click" />
             </td>
             <td>

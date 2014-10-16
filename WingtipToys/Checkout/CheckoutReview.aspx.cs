@@ -89,7 +89,11 @@ namespace WingtipToys.Checkout
                         // Display Order Information
                         List<Order> orderList = new List<Order>();
                         orderList.Add(myOrder);
-                        ShipInfo.DataSource = myOrderList;
+                        ShipInfo.DataSource = orderList;
+                        ShipInfo.DataBind();
+
+                        // Display Order Details
+                        OrderItemList.DataSource = myOrderList;
                         OrderItemList.DataBind();
                     }
                 }

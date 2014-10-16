@@ -25,8 +25,60 @@ namespace WingtipToys.Checkout
 
                 string retMsg = "";
                 string token = "";
+                string finalPaymentAmount = "";
+                string PayerID = "";
+                NVPCodec decoder = new NVPCodec();
 
+                token = Session["token"].ToString();
+                PayerID = Session["payerId"].ToString();
+                finalPaymentAmount = Session["payment_amt"].ToString();
+
+                bool ret = payPalCaller.DoCheckoutPayment(finalPaymentAmount, token, PayerID, ref decoder, ref retMsg);
+                if (ret)
+                {
+                    // Retrieve PayPal confirmation value
+                    string PaymentConfirmation = decoder["PAYMENTINFO_0_TRANSACTIONID"].ToString();
+                    TransactionId.Text = PaymentConfirmation;
+
+                    ProductContext _db = new ProductContext();
+                    // Get current order id
+                    int currentOrderId = -1;
+                    if (Session["currentOrderId"] != string.Empty)
+                    {
+                        currentOrderId = Convert.ToInt32(Session["currentOrderID"]);
+                    }
+                    Order mycurrentOrder;
+                    if (currentOrderId >= 0)
+                    {
+                        // Get Order based on OrderId
+                        mycurrentOrder = _db.Orders.Single(o => o.OrderId == currentOrderId);
+
+                        // Update the order to reflect payment has been completed
+                        mycurrentOrder.PaymentTransactionId = PaymentConfirmation;
+ 
+                        // Save to Database
+                        _db.SaveChanges();
+                    }
+
+                    // Clear shopping cart
+                    using (WingtipToys.Logic.ShoppingCartActions usersShoppingCart = new WingtipToys.Logic.ShoppingCartActions())
+                    {
+                        usersShoppingCart.EmptyCart();
+                    }
+
+                    // Clear order Id
+                    Session["currentOrderId"] = string.Empty;
+                }
+                else
+                {
+                    Response.Redirect("CheckoutError.aspx?" + retMsg);
+                }
             }
+        }
+
+        protected void Continue_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("~/default.aspx");
         }
     }
 }

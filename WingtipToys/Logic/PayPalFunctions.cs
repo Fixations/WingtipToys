@@ -92,7 +92,7 @@ public class NVPAPICaller
         if (strAck != null && (strAck == "success" || strAck == "successwithwarning"))
         {
             token = decoder["TOKEN"];
-            string ECURL = "https://" + host + "/cgi-bin/webscr?cmd= express-checkout" + "&token=" + token;
+            string ECURL = "https://" + host + "/cgi-bin/webscr?cmd=_express-checkout" + "&token=" + token;
             retMsg = ECURL;
             return true;
         }
@@ -130,14 +130,14 @@ public class NVPAPICaller
         }
         else
         {
-            retMsg = "ErrorCode=" + decoder["L ERRORCODE0"] + "&" +
+            retMsg = "ErrorCode=" + decoder["L_ERRORCODE0"] + "&" +
                "Desc=" + decoder["L_SHORTMESSAGE0"] + "&" +
                "Desc2=" + decoder["L_LONGMESSAGE0"];
             return false;
         }
     }
 
-    public bool DoCheckoutPayment(string finalPamentAmount, string token, string PayerID, ref NVPCodec decoder, ref string retMsg)
+    public bool DoCheckoutPayment(string finalPaymentAmount, string token, string PayerID, ref NVPCodec decoder, ref string retMsg)
     {
         if (bSandbox)
         {
@@ -148,7 +148,7 @@ public class NVPAPICaller
         encoder["METHOD"] = "DoExpressCheckoutPayment";
         encoder["TOKEN"] = token;
         encoder["PAYERID"] = PayerID;
-        encoder["PAYMENTREQUEST_0_AMT"] = finalPamentAmount;
+        encoder["PAYMENTREQUEST_0_AMT"] = finalPaymentAmount;
         encoder["PAYMENTREQUEST 0 CURRENCYCODE"] = "USD";
         encoder["PAYMENTREQUEST 0 PAYMENTACTION"] = "Sale";
 
@@ -165,7 +165,7 @@ public class NVPAPICaller
         }
         else
         {
-            retMsg = "ErrorCode=" + decoder["L ERRORCODE0"] + "&" +
+            retMsg = "ErrorCode=" + decoder["L_ERRORCODE0"] + "&" +
                "Desc=" + decoder["L_SHORTMESSAGE0"] + "&" +
                "Desc2=" + decoder["L_LONGMESSAGE0"];
             return false;
@@ -203,7 +203,6 @@ public class NVPAPICaller
         {
             result = sr.ReadToEnd();
         }
-
         return result;
     }
 
@@ -212,9 +211,7 @@ public class NVPAPICaller
         NVPCodec codec = new NVPCodec();
 
         if (!IsEmpty(APIUsername))
-        {
             codec["USER"] = APIUsername;
-        }
 
         if (!IsEmpty(APIPassword))
             codec[PWD] = APIPassword;
@@ -247,34 +244,33 @@ public sealed class NVPCodec : NameValueCollection
     {
         StringBuilder sb = new StringBuilder();
         bool firstPair = true;
-            foreach (string kv in AllKeys)
+        foreach (string kv in AllKeys)
+        {
+            string name = HttpUtility.UrlEncode(kv);
+            string value = HttpUtility.UrlEncode(this[kv]);
+            if (!firstPair)
             {
-                string name = HttpUtility.UrlEncode(kv);
-                string value = HttpUtility.UrlEncode(this[kv]);
-                if (!firstPair)
-                {
-                    sb.Append(AMPERSAND);
-                }
-                sb.Append(name).Append(EQUALS).Append(value);
-                firstPair = false;
+                sb.Append(AMPERSAND);
             }
-
-            return sb.ToString();
+            sb.Append(name).Append(EQUALS).Append(value);
+            firstPair = false;
+        }
+        return sb.ToString();
     }
 
     public void Decode(string nvpstring)
     {
         Clear();
-            foreach (string nvp in nvpstring.Split(AMPERSAND_CHAR_ARRAY))
+        foreach (string nvp in nvpstring.Split(AMPERSAND_CHAR_ARRAY))
+        {
+            string[] tokens = nvp.Split(EQUALS_CHAR_ARRAY);
+            if (tokens.Length >= 2)
             {
-                string[] tokens = nvp.Split(EQUALS_CHAR_ARRAY);
-                if (tokens.Length >= 2)
-                {
-                    string name = HttpUtility.UrlDecode(tokens[0]);
-                    string value = HttpUtility.UrlDecode(tokens[1]);
-                    Add(name, value);
-                }
+                string name = HttpUtility.UrlDecode(tokens[0]);
+                string value = HttpUtility.UrlDecode(tokens[1]);
+                Add(name, value);
             }
+        }
     }
 
     public void Add(string name, string value, int index)
@@ -303,9 +299,8 @@ public sealed class NVPCodec : NameValueCollection
     {
         if (index < 0)
         {
-            throw new ArgumentOutOfRangeException("index", "index cannot be negative: " + index);
+            throw new ArgumentOutOfRangeException("index", "index cannot be negative : " + index);
         }
-
         return name + index;
     }
 }

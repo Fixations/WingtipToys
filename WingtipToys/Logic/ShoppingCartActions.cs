@@ -33,7 +33,6 @@ namespace WingtipToys.Logic
                     Quantity = 1,
                     DateCreated = DateTime.Now
                 };
-
                 _cartdb.ShoppingCartItems.Add(cartItem);
             }
             else
@@ -42,7 +41,6 @@ namespace WingtipToys.Logic
                 // Just add one to quantity.
                 cartItem.Quantity++;
             }
-
             _cartdb.SaveChanges();
         }
 
@@ -60,7 +58,7 @@ namespace WingtipToys.Logic
             if (HttpContext.Current.Session[CartSessionKey] == null)
             {
                 // See if we have a customer Name and use it. If not create a temp GUID.
-                if (!String.IsNullOrWhiteSpace(HttpContext.Current.User.Identity.Name))
+                if (!string.IsNullOrWhiteSpace(HttpContext.Current.User.Identity.Name))
                 {
                     HttpContext.Current.Session[CartSessionKey] = HttpContext.Current.User.Identity.Name;
                 }
@@ -71,7 +69,6 @@ namespace WingtipToys.Logic
                     HttpContext.Current.Session[CartSessionKey] = tempCartId.ToString();
                 }
             }
-
             return HttpContext.Current.Session[CartSessionKey].ToString();
         }
 
@@ -114,24 +111,24 @@ namespace WingtipToys.Logic
                 {
                     int CartItemCount = CartItemUpdates.Count();
                     List<CartItem> myCart = GetCartItems();
-                        foreach (var cartItem in myCart)
+                    foreach (var cartItem in myCart)
+                    {
+                        // Go through all rows within Shopping Cart List
+                        for (int i = 0; i < CartItemCount; i++)
                         {
-                            // Go through all rows within Shopping Cart List
-                            for (int i = 0; i < CartItemCount; i++)
+                            if (cartItem.Product.ProductID == CartItemUpdates[i].ProductId)
                             {
-                                if (cartItem.Product.ProductID == CartItemUpdates[i].ProductId)
+                                if (CartItemUpdates[i].PurchaseQuantity < 1 || CartItemUpdates[i].RemoveItem == true)
                                 {
-                                    if (CartItemUpdates[i].PurchaseQuantity < 1 || CartItemUpdates[i].RemoveItem == true)
-                                    {
-                                        RemoveItem(cartId, cartItem.ProductId);
-                                    }
-                                    else
-                                    {
-                                        UpdateItem(cartId, cartItem.ProductId, CartItemUpdates[i].PurchaseQuantity);
-                                    }
+                                    RemoveItem(cartId, cartItem.ProductId);
+                                }
+                                else
+                                {
+                                    UpdateItem(cartId, cartItem.ProductId, CartItemUpdates[i].PurchaseQuantity);
                                 }
                             }
                         }
+                    }
                 }
                 catch (Exception exp)
                 {
@@ -174,7 +171,6 @@ namespace WingtipToys.Logic
                                   select c).FirstOrDefault();
                     if (myItem != null)
                     {
-                        // If myItem is already in cart, add to total number
                         myItem.Quantity = quantity;
                         _cartdb.SaveChanges();
                     }
@@ -196,7 +192,6 @@ namespace WingtipToys.Logic
             {
                 _cartdb.ShoppingCartItems.Remove(cartItem);
             }
-
             // Save changes
             _cartdb.SaveChanges();
         }

@@ -11,7 +11,7 @@ namespace WingtipToys.Checkout
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            NVPAPICaller payPalCaller = NVPAPICaller();
+            NVPAPICaller payPalCaller = new NVPAPICaller();
             string retMsg = "";
             string token = "";
 
@@ -20,7 +20,6 @@ namespace WingtipToys.Checkout
                 string amt = Session["payment amt"].ToString();
 
                 bool ret = payPalCaller.ShortcutExpressCheckout(amt, ref token, ref retMsg);
-
                 if (ret)
                 {
                     Session["token"] = token;
