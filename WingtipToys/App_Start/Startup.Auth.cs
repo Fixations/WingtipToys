@@ -55,9 +55,9 @@ namespace WingtipToys
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            app.UseFacebookAuthentication(
+               appId: "850354908337435",
+               appSecret: "d8887e871bf75a61bbdc6d372769e451");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
