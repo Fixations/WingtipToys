@@ -55,14 +55,14 @@ namespace WingtipToys
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            app.UseFacebookAuthentication(
-               appId: "850354908337435",
-               appSecret: "d8887e871bf75a61bbdc6d372769e451");
+            //app.UseFacebookAuthentication(
+            //   appId: "850354908337435",
+            //   appSecret: "d8887e871bf75a61bbdc6d372769e451");
 
             //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
             //{
-            //    ClientId = "",
-            //    ClientSecret = ""
+            //    ClientId = "636206248643-1d8h6qm6u2ltaib5eibmuua1isii79pc.apps.googleusercontent.com",
+            //    ClientSecret = "TKlXeIzmngUZ481Feml9MBsT"
             //});
         }
     }
