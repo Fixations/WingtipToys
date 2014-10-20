@@ -26,6 +26,23 @@ namespace WingtipToys
             // Create the administrator role and user
             RoleActions roleActions = new RoleActions();
             roleActions.createAdmin();
+
+            // Add Routes
+            RegisterCustomRoutes(RouteTable.Routes);
+        }
+
+        void RegisterCustomRoutes(RouteCollection routes)
+        {
+            routes.MapPageRoute(
+                "ProductsByCategoryRoute",
+                "Category/{categoryName}",
+                "~/ProductList.aspx"
+                );
+            routes.MapPageRoute(
+                "ProductByNameRoute",
+                "Product/{productName}",
+                "~/ProductDetails.aspx"
+                );
         }
     }
 }
